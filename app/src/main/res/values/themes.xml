@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.DAAdmin" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+<!--         <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.DAAdmin" parent="Base.Theme.DAAdmin" />
+
+    <style name="Base.Theme.DAAdmin_MYTHEMETOOLBAR" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+                 <item name="colorPrimary">@color/ToolBar_primaryColor</item>
+                 <item name="colorSecondary">@color/ToolBar_secondaryColor</item>
+                 <item name="colorAccent">@color/ToolBar_itemColor</item>
+    </style>
+
+</resources>

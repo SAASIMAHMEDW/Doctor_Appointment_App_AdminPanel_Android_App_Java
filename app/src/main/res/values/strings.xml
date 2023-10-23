@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">DA Admin</string>
+    <string name="SplashScreen">Admin </string>
+    <string name="sp_doctor_iamge">Doctor Image</string>
+
+
+    <!--    MainActivity-->
+    <string name="mainactivity_HomeHeadingTextDoctor">Doctor</string>
+    <string name="mainactivity_HomeHeadingTextAdmin">Admin</string>
+    <string name="mainactivity_HomeHeadingTextAdminLogin">Admin Login</string>
+    <string name="mainactivity_HomeLoginBTN">Login</string>
+    <string name="mainactivity_HomeRegisterBTN">Register</string>
+
+    <!--    LoginActivity-->
+    <string name="LoginEmail">Email</string>
+    <string name="LoginPassword">Password</string>
+    <string name="LoginActivity_LoginBTN">Login</string>
+
+    <!--    Register Activity-->
+    <string name="adminRegister_HomeHeadingTextAdminLogin">Register</string>
+    <string name="registerName">Name</string>
+    <string name="registerAge">Age</string>
+    <string name="register_doctorSpecilization">Your Specilization</string>
+    <string name="registerGender">Select Gender</string>
+    <string name="registerGenderMale">Male</string>
+    <string name="registerGenderFemale">Female</string>
+    <string name="registerGenderOther">Other</string>
+
+    <string name="otherSP">Write Here</string>
+    <string name="registerEmail">Email</string>
+    <string name="registerPassword">Password</string>
+
+    <string name="register_AboutYourSelf">Write About Yourself</string>
+    <string name="register_WriteHere">Write Here</string>
+    <string name="registerActivity_registerBTN">Register</string>
+
+    <!--    Test TSring-->
+    <string name="testSTR">TEST STR</string>
+    <string name="testAdminPanel">Admin Panel</string>
+
+
+    <!--    Nav Boootom BAr-->
+    <string name="nav_home">Home</string>
+    <string name="nav_lis">List</string>
+    <string name="nav_profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tabx">TabX</string>
+</resources>

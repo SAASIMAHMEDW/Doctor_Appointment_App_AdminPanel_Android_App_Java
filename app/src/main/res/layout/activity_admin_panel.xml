@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AdminPanelActivity">
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/AppPrimaryColorX"-->
+<!--        android:orientation="horizontal"-->
+<!--        tools:ignore="UselessParent">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView2"-->
+<!--                android:layout_width="46dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginStart="-20dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:contentDescription="@string/sp_doctor_iamge"-->
+<!--                app:srcCompat="@drawable/img_two"-->
+<!--                tools:ignore="ImageContrastCheck" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textView11"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginStart="-15dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="D Name"-->
+<!--                android:textSize="24sp" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="center|end"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <Spinner-->
+<!--                    android:id="@+id/spinner_doctor_status"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center|end"-->
+<!--                    tools:ignore="TouchTargetSizeCheck" />-->
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:visibility="gone">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView11"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/alata"-->
+<!--            android:padding="10dp"-->
+<!--            android:text="On Going Patient"-->
+<!--            android:textColor="@color/AppFourthColorX"-->
+<!--            android:textSize="24sp"-->
+<!--            android:textStyle="bold" />-->
+<!--    </LinearLayout>-->
+
+    <FrameLayout
+        android:id="@+id/adminpanelContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_marginBottom="?attr/actionBarSize"
+
+        />
+<!--    android:layout_marginBottom="?attr/actionBarSize"-->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/adminPanelBottomViewNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@drawable/bottom_nav_item_background"
+        android:background="@color/AppPrimaryColorX"
+        app:menu="@menu/admin_option_menu"
+        >
+<!--        android:background="@drawable/bottom_navbar_selected_item_bgcolor"-->
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</RelativeLayout>
