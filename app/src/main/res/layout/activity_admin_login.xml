@@ -62,7 +62,7 @@
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/adminLoginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -75,7 +75,7 @@
             android:textColorHint="@color/AppFourthColorX" />
 
         <EditText
-            android:id="@+id/editTextText2"
+            android:id="@+id/adminLoginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"

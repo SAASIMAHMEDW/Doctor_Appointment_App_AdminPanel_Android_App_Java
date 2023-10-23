@@ -69,7 +69,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextText3"
+                android:id="@+id/adminName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -89,7 +89,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextText4"
+                android:id="@+id/adminAge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -108,7 +108,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextTextEmailAddress"
+                android:id="@+id/adminEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -122,29 +122,45 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/editTextText5"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/registerPassword"
-                android:inputType="text"
-                android:minHeight="48dp"
-                android:textColorHint="@color/AppFourthColorX" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:paddingTop="5dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            tools:ignore="UselessLeaf" />
+                <EditText
+                    android:id="@+id/adminPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/registerPassword"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:textColorHint="@color/AppFourthColorX" />
+
+                <EditText
+                    android:id="@+id/adminPasswordHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="Password Hint"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:textColorHint="@color/AppFourthColorX" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -174,13 +190,14 @@
                 android:orientation="horizontal">
 
                 <RadioGroup
+                    android:id="@+id/adminRadioGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     tools:ignore="UselessParent">
 
                     <RadioButton
-                        android:id="@+id/radioButton"
+                        android:id="@+id/adminRadioButton_Male"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -189,7 +206,7 @@
                         android:textSize="20sp" />
 
                     <RadioButton
-                        android:id="@+id/radioButton2"
+                        android:id="@+id/adminRadioButton_Female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -198,7 +215,7 @@
                         android:textSize="20sp" />
 
                     <RadioButton
-                        android:id="@+id/radioButton3"
+                        android:id="@+id/adminRadioButton_Other"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -248,28 +265,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="SPes"
+                        android:text="Dermatology"
                         android:textColorHint="@color/AppFourthColorX"
-                        android:textSize="16sp"
-                        tools:ignore="DuplicateSpeakableTextCheck" />
+                        android:textSize="16sp" />
 
                     <CheckBox
                         android:id="@+id/checkBox2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="SPes"
+                        android:text="Endocrinology"
                         android:textColorHint="@color/AppFourthColorX"
                         android:textSize="16sp" />
 
-                    <CheckBox
-                        android:id="@+id/checkBox3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="SPes"
-                        android:textColorHint="@color/AppFourthColorX"
-                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -279,31 +287,52 @@
                     tools:ignore="UselessParent">
 
                     <CheckBox
+                        android:id="@+id/checkBox3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Cardiology      "
+                        android:textColorHint="@color/AppFourthColorX"
+                        android:textSize="16sp"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+
+                    <CheckBox
                         android:id="@+id/checkBox4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="SPes"
+                        android:text="Anesthesiology     "
                         android:textColorHint="@color/AppFourthColorX"
                         android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
 
                     <CheckBox
                         android:id="@+id/checkBox5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="SPes"
+                        android:text="Gastroenterology"
                         android:textColorHint="@color/AppFourthColorX"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:ignore="DuplicateIds" />
 
                     <CheckBox
                         android:id="@+id/checkBox6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="SPes"
+                        android:text="Anatomical Pathology"
                         android:textColorHint="@color/AppFourthColorX"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:ignore="DuplicateIds" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -319,10 +348,10 @@
                         android:layout_weight="1"
                         android:text="Other"
                         android:textColorHint="@color/AppFourthColorX"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
 
                     <EditText
-                        android:id="@+id/editTextText8"
+                        android:id="@+id/checkBoxTextArea"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -365,7 +394,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/editTextText7"
+                    android:id="@+id/adminAboutYourSelf"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
                     android:layout_marginTop="20dp"

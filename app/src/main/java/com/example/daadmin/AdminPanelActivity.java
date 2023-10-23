@@ -72,23 +72,8 @@ public class AdminPanelActivity extends AppCompatActivity {
             }
         });
         adminPanelBottomViewNav.setSelectedItemId(R.id.nav_home);
-//        selected nav bar item
-//        MaterialShapeDrawable materialShapeDrawable = (MaterialShapeDrawable)adminPanelBottomViewNav.getBackground();
-//        int[][] states = new int[][] {
-//                new int[] { android.R.attr.state_selected},
-//                new int[] {}
-//        };
-//        int[] colors = new int[] {
-//                Color.,
-//                Color.GRAY
-//        };
-//        ColorStateList colorStateList = new ColorStateList(states, colors);
-//        materialShapeDrawable.setFillColor(colorStateList);
-//        adminPanelBottomViewNav.setItemBackground(materialShapeDrawable);
 
     }
-
-
 
     public void fragmentLoader(Fragment fragment, boolean flag){
         FragmentManager fm = getSupportFragmentManager();
