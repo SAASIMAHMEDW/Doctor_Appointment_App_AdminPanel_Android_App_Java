@@ -48,38 +48,6 @@ public class AdminLoginActivity extends AppCompatActivity {
             }
         });
     }
-//    public void UsereData(){
-//        allDataList = new ArrayList<>();
-//        allDataList.clear();
-//        FirebaseFirestore db;
-//        db = FirebaseFirestore.getInstance();
-//        db.collection("ADMINS").document().collection(EMAIL).addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                if (error == null){
-//                    List<adminUserModel> data = value.toObjects(adminUserModel.class);
-//                    allDataList.addAll(data);
-//                }else {
-//                    Toast.makeText(AdminLoginActivity.this, "Failed To Load Data", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//    }
-
-//    public void VerifiedUserData(){
-//        if (EMAIL.length()==0 || PASSWORD.length()==0){
-//            Toast.makeText(AdminLoginActivity.this, "LoginActivity->Fill Email Password Field", Toast.LENGTH_SHORT).show();
-//        }else {
-//            for (int i=0; i<allDataList.size(); i++) {
-//                String testEmail = (allDataList.get(i).email).toString();
-//                String testpassord = (allDataList.get(i).password).toString();
-//                if (EMAIL.equals(testEmail) && PASSWORD.equals(testpassord)) {
-//                    goAdminPanel();
-//                    break;
-//                }
-//            }
-//        }
-//    }
 
     public void get_admin_login_filled_data(){
         EditText adminLoginEmail,adminLoginPassword;
@@ -132,6 +100,8 @@ public class AdminLoginActivity extends AppCompatActivity {
         AdminPanelIntent.putExtra("PASSWORDX",PASSWORD);
         startActivity(AdminPanelIntent);
     }
+
+
 
 
 }

@@ -8,8 +8,12 @@ public class adminUserModel {
     String firestore_uid;
     String login_uid;
     String adminID;
+    int x;
 
     public adminUserModel() {
+    }
+    public adminUserModel(int x){
+        this.x = x;
     }
 
     public adminUserModel(String name, String age, String email, String password, String passwordHint, String gender, String aboutYourSelf, String doctorSpeci, String firestore_uid, String login_uid,String adminID) {

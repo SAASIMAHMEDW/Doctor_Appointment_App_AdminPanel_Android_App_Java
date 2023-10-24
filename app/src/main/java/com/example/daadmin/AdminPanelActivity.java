@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -27,12 +28,13 @@ import java.util.ArrayList;
 
 public class AdminPanelActivity extends AppCompatActivity {
 
+    String EMAIL,PASSWORD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_panel);
-
+        getIntentData();
         bottomNavBar();
     }
 
@@ -61,11 +63,11 @@ public class AdminPanelActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if (id == R.id.nav_home){
-                    fragmentLoader(new HomeFragment(),true);
+                    fragmentLoader(HomeFragment.getInstance(EMAIL,PASSWORD),true);
                 }else if (id == R.id.nav_list){
                     fragmentLoader(new ListFragment(),false);
                 }else {
-                    fragmentLoader(new ProfileFragment(),false);
+                    fragmentLoader(ProfileFragment.getInstance(EMAIL,PASSWORD),false);
                 }
 
                 return true;
@@ -78,13 +80,28 @@ public class AdminPanelActivity extends AppCompatActivity {
     public void fragmentLoader(Fragment fragment, boolean flag){
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+
+//        Bundle bundle = new Bundle();
+//        bundle.putString("EMAILX",EMAIL);
+//        bundle.putString("PASSWORDX",PASSWORD);
+//        fragment.setArguments(bundle);
+
         if (flag){
             ft.add(R.id.adminpanelContainer, fragment);
         }else {
             ft.replace(R.id.adminpanelContainer,fragment);
         }
-
         ft.commit();
+    }
+
+    public void getIntentData(){
+        Intent intent = getIntent();
+        EMAIL = intent.getStringExtra("EMAILX");
+        PASSWORD = intent.getStringExtra("PASSWORDX");
+    }
+
+    public void getDataFromDB(){
+
     }
 
 }

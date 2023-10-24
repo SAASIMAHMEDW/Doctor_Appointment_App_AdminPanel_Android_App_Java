@@ -140,12 +140,12 @@ public class registerActivitySV extends AppCompatActivity {
         adminUserModel user = new adminUserModel(name,age,email,password,passwordHint,gender,aboutYourSelf,DS,firestore_uid,login_uid,admin_firestore_id);
 
         db.collection("ADMINS")
-                .document(email).collection(email).document(email)
+                .document(email).collection(email).document("PROFILE")
                 .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-//                            Toast.makeText(registerActivitySV.this, "DONME", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(registerActivitySV.this, "Your Account Successfully Created", Toast.LENGTH_SHORT).show();
                             goAdminLogin();
                         }else {
                             Toast.makeText(registerActivitySV.this, "X Failed To Create Admin User", Toast.LENGTH_SHORT).show();

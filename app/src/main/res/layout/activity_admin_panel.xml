@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:itemBackground="@drawable/bottom_nav_item_background"
-        android:background="@color/AppPrimaryColorX"
+        android:background="@color/AppThirdColorX"
         app:menu="@menu/admin_option_menu"
         >
 <!--        android:background="@drawable/bottom_navbar_selected_item_bgcolor"-->
