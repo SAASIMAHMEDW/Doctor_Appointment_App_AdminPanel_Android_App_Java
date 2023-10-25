@@ -49,348 +49,387 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="30dp"
-            app:contentPadding="5dp">
+            android:layout_height="match_parent" >
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="212dp"
-                android:layout_height="261dp"
-                android:layout_gravity="center"
-                android:indeterminate="true"
-                android:indeterminateTint="@color/AppThirdColorX"
-                android:indeterminateTintMode="src_atop">
-
-            </ProgressBar>
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="30dp"
+                app:contentPadding="5dp">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="212dp"
+                    android:layout_height="261dp"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/AppThirdColorX"
+                    android:indeterminateTintMode="src_atop">
+
+                </ProgressBar>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textdddxView1D5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/alata"
-                            android:padding="10dp"
-                            android:text="@string/registerName"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/adminDoctorProfile_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:backgroundTint="@color/AppThirdColorX"
-                            android:ems="10"
-                            android:enabled="false"
-                            android:focusable="auto"
-                            android:fontFamily="@font/alata"
-                            android:hapticFeedbackEnabled="true"
-                            android:hint="@string/registerName"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColorHint="#646666"
-                            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/texdddxtView1D5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/alata"
-                            android:padding="10dp"
-                            android:text="@string/registerAge"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/adminDoctorProfile_age"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:backgroundTint="@color/AppThirdColorX"
-                            android:ems="10"
-                            android:enabled="false"
-                            android:focusable="auto"
-                            android:fontFamily="@font/alata"
-                            android:hapticFeedbackEnabled="true"
-                            android:hint="@string/registerAge"
-                            android:inputType="number"
-                            android:padding="10dp"
-                            android:textColorHint="#646666"
-                            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textViewD15"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/alata"
-                            android:padding="10dp"
-                            android:text="@string/registerEmail"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/adminDoctorProfile_email"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:backgroundTint="@color/AppThirdColorX"
-                            android:ems="10"
-                            android:enabled="false"
-                            android:focusable="auto"
-                            android:fontFamily="@font/alata"
-                            android:hapticFeedbackEnabled="true"
-                            android:hint="@string/registerEmail"
-                            android:inputType="text|textEmailAddress"
-                            android:padding="10dp"
-                            android:textColorHint="#646666"
-                            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tedddxxtView15"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/alata"
-                            android:padding="10dp"
-                            android:text="@string/registerPassword"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/adminDoctorProfile_password"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:backgroundTint="@color/AppThirdColorX"
-                            android:ems="10"
-                            android:enabled="false"
-                            android:focusable="auto"
-                            android:fontFamily="@font/alata"
-                            android:hapticFeedbackEnabled="true"
-                            android:hint="@string/registerPassword"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColorHint="#646666"
-                            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textViewdddx15"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/alata"
-                            android:padding="10dp"
-                            android:text="Password Hint"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/adminDoctorProfile_password_hint"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:backgroundTint="@color/AppThirdColorX"
-                            android:ems="10"
-                            android:enabled="false"
-                            android:focusable="auto"
-                            android:fontFamily="@font/alata"
-                            android:hapticFeedbackEnabled="true"
-                            android:hint="Password Hint"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColorHint="#646666"
-                            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textVidddxew15"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/alata"
-                            android:padding="10dp"
-                            android:text="Gender"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/adminDoctorProfile_gender"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:backgroundTint="@color/AppThirdColorX"
-                            android:ems="10"
-                            android:enabled="false"
-                            android:focusable="auto"
-                            android:fontFamily="@font/alata"
-                            android:hapticFeedbackEnabled="true"
-                            android:hint="Gender"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColorHint="#646666"
-                            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textViewdddx14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/alata"
-                            android:padding="10dp"
-                            android:text="@string/register_doctorSpecilization"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/adminDoctorProfile_specilization"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:height="100dp"
-                            android:autofillHints=""
-                            android:backgroundTint="@color/AppThirdColorX"
-                            android:ems="10"
-                            android:enabled="false"
-                            android:focusable="auto"
-                            android:fontFamily="@font/alata"
-                            android:hapticFeedbackEnabled="true"
-                            android:hint="@string/register_doctorSpecilization"
-                            android:inputType="text|textMultiLine"
-                            android:padding="10dp"
-                            android:textColorHint="#646666"
-                            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/texxtViewdddx15"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/alata"
-                            android:padding="10dp"
-                            android:text="About Yourself"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/adminDoctorProfile_about"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:height="80dp"
-                            android:backgroundTint="@color/AppThirdColorX"
-                            android:ems="10"
-                            android:enabled="false"
-                            android:focusable="auto"
-                            android:fontFamily="@font/alata"
-                            android:hapticFeedbackEnabled="true"
-                            android:hint="About Yourself"
-                            android:inputType="text|textMultiLine"
-                            android:padding="10dp"
-                            android:textColorHint="#646666"
-                            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:orientation="vertical"
-                        android:paddingLeft="50dp"
-                        android:paddingRight="50dp">
+                        android:padding="10dp">
 
-                        <Button
-                            android:id="@+id/adminDoctorProfile_updaterProfile"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@color/AppSecondaryColorX"
-                            android:clickable="false"
-                            android:fontFamily="@font/alata"
-                            android:text="UPDATE"
-                            android:textSize="24sp"
-                            android:textStyle="bold"
-                            android:visibility="gone" />
+                            android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/adminDoctorProfile_edit"
+                            <TextView
+                                android:id="@+id/textdddxView1D5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/alata"
+                                android:padding="10dp"
+                                android:text="@string/registerName"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/adminDoctorProfile_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/AppThirdColorX"
+                                android:ems="10"
+                                android:enabled="false"
+                                android:focusable="auto"
+                                android:fontFamily="@font/alata"
+                                android:hapticFeedbackEnabled="true"
+                                android:hint="@string/registerName"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColorHint="#646666"
+                                tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@color/AppSecondaryColorX"
-                            android:clickable="false"
-                            android:fontFamily="@font/alata"
-                            android:text="EDIT"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/texdddxtView1D5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/alata"
+                                android:padding="10dp"
+                                android:text="@string/registerAge"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/adminDoctorProfile_age"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/AppThirdColorX"
+                                android:ems="10"
+                                android:enabled="false"
+                                android:focusable="auto"
+                                android:fontFamily="@font/alata"
+                                android:hapticFeedbackEnabled="true"
+                                android:hint="@string/registerAge"
+                                android:inputType="number"
+                                android:padding="10dp"
+                                android:textColorHint="#646666"
+                                tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textViewD15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/alata"
+                                android:padding="10dp"
+                                android:text="@string/registerEmail"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/adminDoctorProfile_email"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/AppThirdColorX"
+                                android:ems="10"
+                                android:enabled="false"
+                                android:focusable="auto"
+                                android:fontFamily="@font/alata"
+                                android:hapticFeedbackEnabled="true"
+                                android:hint="@string/registerEmail"
+                                android:inputType="text|textEmailAddress"
+                                android:padding="10dp"
+                                android:textColorHint="#646666"
+                                tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tedddxxtView15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/alata"
+                                android:padding="10dp"
+                                android:text="@string/registerPassword"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/adminDoctorProfile_password"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/AppThirdColorX"
+                                android:ems="10"
+                                android:enabled="false"
+                                android:focusable="auto"
+                                android:fontFamily="@font/alata"
+                                android:hapticFeedbackEnabled="true"
+                                android:hint="@string/registerPassword"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColorHint="#646666"
+                                tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textViewdddx15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/alata"
+                                android:padding="10dp"
+                                android:text="Password Hint"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/adminDoctorProfile_password_hint"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/AppThirdColorX"
+                                android:ems="10"
+                                android:enabled="false"
+                                android:focusable="auto"
+                                android:fontFamily="@font/alata"
+                                android:hapticFeedbackEnabled="true"
+                                android:hint="Password Hint"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColorHint="#646666"
+                                tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textVidddxew15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/alata"
+                                android:padding="10dp"
+                                android:text="Gender"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/adminDoctorProfile_gender"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/AppThirdColorX"
+                                android:ems="10"
+                                android:enabled="false"
+                                android:focusable="auto"
+                                android:fontFamily="@font/alata"
+                                android:hapticFeedbackEnabled="true"
+                                android:hint="Gender"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColorHint="#646666"
+                                tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textVsidddxxxew15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/alata"
+                                android:padding="10dp"
+                                android:text="Status"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/adminDoctorProfile_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:backgroundTint="@color/AppThirdColorX"
+                                android:ems="10"
+                                android:enabled="false"
+                                android:focusable="auto"
+                                android:fontFamily="@font/alata"
+                                android:hapticFeedbackEnabled="true"
+                                android:hint="Status"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColorHint="#646666"
+                                tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textViewdddx14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/alata"
+                                android:padding="10dp"
+                                android:text="@string/register_doctorSpecilization"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/adminDoctorProfile_specilization"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:height="100dp"
+                                android:autofillHints=""
+                                android:backgroundTint="@color/AppThirdColorX"
+                                android:ems="10"
+                                android:enabled="false"
+                                android:focusable="auto"
+                                android:fontFamily="@font/alata"
+                                android:hapticFeedbackEnabled="true"
+                                android:hint="@string/register_doctorSpecilization"
+                                android:inputType="text|textMultiLine"
+                                android:padding="10dp"
+                                android:textColorHint="#646666"
+                                tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/texxtViewdddx15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/alata"
+                                android:padding="10dp"
+                                android:text="About Yourself"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/adminDoctorProfile_about"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:height="80dp"
+                                android:backgroundTint="@color/AppThirdColorX"
+                                android:ems="10"
+                                android:enabled="false"
+                                android:focusable="auto"
+                                android:fontFamily="@font/alata"
+                                android:hapticFeedbackEnabled="true"
+                                android:hint="About Yourself"
+                                android:inputType="text|textMultiLine"
+                                android:padding="10dp"
+                                android:textColorHint="#646666"
+                                tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical"
+                            android:paddingLeft="50dp"
+                            android:paddingRight="50dp">
+
+                            <Button
+                                android:id="@+id/adminDoctorProfile_updaterProfile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/AppSecondaryColorX"
+                                android:clickable="false"
+                                android:fontFamily="@font/alata"
+                                android:text="UPDATE"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+
+                            <Button
+                                android:id="@+id/adminDoctorProfile_edit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/AppSecondaryColorX"
+                                android:clickable="false"
+                                android:fontFamily="@font/alata"
+                                android:text="EDIT"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+        </ScrollView>
 
 
     </LinearLayout>

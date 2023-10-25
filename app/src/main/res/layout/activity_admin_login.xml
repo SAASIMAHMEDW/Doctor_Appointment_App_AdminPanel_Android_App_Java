@@ -55,51 +55,79 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="431dp"
-        android:layout_margin="20dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/adminLoginEmail"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/LoginEmail"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:textColorHint="@color/AppFourthColorX" />
+            android:layout_margin="10dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp">
 
-        <EditText
-            android:id="@+id/adminLoginPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/LoginPassword"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:textColorHint="@color/AppFourthColorX" />
 
-        <Button
-            android:id="@+id/adminLoginBTN"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
-            android:backgroundTint="@color/AppSecondaryColorX"
-            android:fontFamily="@font/bebas_neue"
-            android:text="@string/LoginActivity_LoginBTN"
-            android:textSize="40sp"
-            tools:ignore="TextSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="431dp"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/adminLoginEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="-50dp"
+                    android:layout_marginRight="30dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/LoginEmail"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:textColorHint="@color/AppFourthColorX" />
+
+                <EditText
+                    android:id="@+id/adminLoginPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/LoginPassword"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:textColorHint="@color/AppFourthColorX" />
+
+                <Button
+                    android:id="@+id/adminLoginBTN"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="30dp"
+                    android:backgroundTint="@color/AppSecondaryColorX"
+                    android:fontFamily="@font/bebas_neue"
+                    android:text="@string/LoginActivity_LoginBTN"
+                    android:textSize="40sp"
+                    tools:ignore="TextSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="212dp"
+                android:layout_height="261dp"
+                android:layout_gravity="center_horizontal"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/AppThirdColorX"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="gone">
+
+            </ProgressBar>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </LinearLayout>

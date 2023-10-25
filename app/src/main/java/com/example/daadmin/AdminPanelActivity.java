@@ -56,7 +56,6 @@ public class AdminPanelActivity extends AppCompatActivity {
         BottomNavigationView adminPanelBottomViewNav;
         adminPanelBottomViewNav = findViewById(R.id.adminPanelBottomViewNav);
 
-
         adminPanelBottomViewNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -69,7 +68,6 @@ public class AdminPanelActivity extends AppCompatActivity {
                 }else {
                     fragmentLoader(ProfileFragment.getInstance(EMAIL,PASSWORD),false);
                 }
-
                 return true;
             }
         });
@@ -100,8 +98,5 @@ public class AdminPanelActivity extends AppCompatActivity {
         PASSWORD = intent.getStringExtra("PASSWORDX");
     }
 
-    public void getDataFromDB(){
-
-    }
 
 }

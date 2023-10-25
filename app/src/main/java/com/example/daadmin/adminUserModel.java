@@ -8,15 +8,13 @@ public class adminUserModel {
     String firestore_uid;
     String login_uid;
     String adminID;
-    int x;
+    String Status;
 
     public adminUserModel() {
     }
-    public adminUserModel(int x){
-        this.x = x;
-    }
 
-    public adminUserModel(String name, String age, String email, String password, String passwordHint, String gender, String aboutYourSelf, String doctorSpeci, String firestore_uid, String login_uid,String adminID) {
+
+    public adminUserModel(String name, String age, String email, String password, String passwordHint, String gender, String aboutYourSelf, String doctorSpeci, String firestore_uid, String login_uid,String adminID,String Status) {
         this.name = name;
         this.age = age;
         this.email = email;
@@ -28,6 +26,7 @@ public class adminUserModel {
         this.firestore_uid = firestore_uid;
         this.login_uid = login_uid;
         this.adminID= adminID;
+        this.Status = Status;
     }
 
     public String getName() {
@@ -72,6 +71,14 @@ public class adminUserModel {
 
     public String getLogin_uid() {
         return login_uid;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
     }
 
     public void setName(String name) {

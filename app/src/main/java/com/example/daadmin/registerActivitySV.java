@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -47,6 +50,7 @@ public class registerActivitySV extends AppCompatActivity {
                 get_admin_register_filled_data();
                 JoinedDS = String.join(", ",DoctorSpecilization);
                 emailPasswordCreateAuth(Email,Password);
+                progressBar(true);
 //                createDataCollection(Name,Age,Email,Password,PasswordHint,Gender,aboutYourSelf,JoinedDS,LOGIN_UID);
 //                Toast.makeText(registerActivitySV.this, DoctorSpecilization.get(6), Toast.LENGTH_SHORT).show();
             }
@@ -108,6 +112,26 @@ public class registerActivitySV extends AppCompatActivity {
         aboutYourSelf = adminAboutYourSelf.getText().toString();
     }
 
+    public void clear_field(){
+        EditText adminName, adminAge, adminEmail, adminPassword, adminPasswordHint, adminAboutYourSelf,checkBoxTextArea;
+        RadioGroup adminRadioGroup;
+        CheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7;
+
+        adminName = findViewById(R.id.adminName);
+        adminAge = findViewById(R.id.adminAge);
+        adminEmail = findViewById(R.id.adminEmail);
+        adminPassword = findViewById(R.id.adminPassword);
+        adminPasswordHint = findViewById(R.id.adminPasswordHint);
+        checkBoxTextArea = findViewById(R.id.checkBoxTextArea);
+        adminAboutYourSelf = findViewById(R.id.adminAboutYourSelf);
+
+        adminName.setText("");
+        adminAge.setText("");
+        adminEmail.setText("");
+        adminPassword.setText("");
+        adminPasswordHint.setText("");
+    }
+
     public void emailPasswordCreateAuth(String email,String password){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase db;
@@ -137,7 +161,7 @@ public class registerActivitySV extends AppCompatActivity {
         String firestore_uid = db.collection("ADMINS").document().collection(name).document().getId();
         String admin_firestore_id = db.collection("ADMINS").document().getId();
 
-        adminUserModel user = new adminUserModel(name,age,email,password,passwordHint,gender,aboutYourSelf,DS,firestore_uid,login_uid,admin_firestore_id);
+        adminUserModel user = new adminUserModel(name,age,email,password,passwordHint,gender,aboutYourSelf,DS,firestore_uid,login_uid,admin_firestore_id,"Available");
 
         db.collection("ADMINS")
                 .document(email).collection(email).document("PROFILE")
@@ -145,8 +169,10 @@ public class registerActivitySV extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(registerActivitySV.this, "Your Account Successfully Created", Toast.LENGTH_SHORT).show();
-                            goAdminLogin();
+                            progressBar(false);
+                            clear_field();
+                            delayed();
+
                         }else {
                             Toast.makeText(registerActivitySV.this, "X Failed To Create Admin User", Toast.LENGTH_SHORT).show();
                         }
@@ -159,5 +185,29 @@ public class registerActivitySV extends AppCompatActivity {
     public void goAdminLogin(){
         Intent AdminPanelIntent = new Intent(registerActivitySV.this, AdminLoginActivity.class);
         startActivity(AdminPanelIntent);
+        finish();
+    }
+
+    public void progressBar(boolean flag){
+        ProgressBar progressBar;
+        progressBar = findViewById(R.id.progressBar);
+        if (flag)
+            progressBar.setVisibility(View.VISIBLE);
+        else
+            progressBar.setVisibility(View.GONE);
+
+    }
+
+    public void delayed(){
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                goAdminLogin();
+                Toast.makeText(registerActivitySV.this, "Your Account Successfully Created", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext().getApplicationContext(), LOGIN_UID, Toast.LENGTH_SHORT).show();
+            }
+        };
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(runnable,1500);
     }
 }
