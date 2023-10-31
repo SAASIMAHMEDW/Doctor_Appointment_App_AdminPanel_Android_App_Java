@@ -73,6 +73,15 @@ public class AdminLoginActivity extends AppCompatActivity {
 
     }
 
+    public void clear_admin_login_filled_data(){
+        EditText adminLoginEmail,adminLoginPassword;
+        adminLoginEmail = findViewById(R.id.adminLoginEmail);
+        adminLoginPassword = findViewById(R.id.adminLoginPassword);
+        adminLoginEmail.setText("");
+        adminLoginPassword.setText("");
+
+    }
+
     public void Login(String email,String password){
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
@@ -82,7 +91,7 @@ public class AdminLoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             progressBar(false);
-//                            Toast.makeText(AdminLoginActivity.this, "successfully Login", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminLoginActivity.this, "successfully Login", Toast.LENGTH_SHORT).show();
                             delayed_admin_panel();
                         }else {
                             Toast.makeText(AdminLoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
@@ -121,6 +130,7 @@ public class AdminLoginActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
+                clear_admin_login_filled_data();
                 goAdminPanel();
 //                Toast.makeText(getContext().getApplicationContext(), LOGIN_UID, Toast.LENGTH_SHORT).show();
             }

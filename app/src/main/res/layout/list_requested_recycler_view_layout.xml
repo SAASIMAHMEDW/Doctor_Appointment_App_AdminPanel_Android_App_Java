@@ -26,6 +26,12 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/list_requsted_recycle_view_doc_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="doc email" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -46,11 +52,38 @@
 
                     <TextView
                         android:id="@+id/list_requsted_recycle_view_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/alata"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/AppSecondaryColorX"
+                        android:textSize="24sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="5dp">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:fontFamily="@font/alata"
+                        android:text="Email"
+                        android:textColor="@color/AppFourthColorX"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/list_requsted_recycle_view_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/alata"
                         android:paddingLeft="10dp"
-                        android:text="Patient Name"
                         android:textColor="@color/AppSecondaryColorX"
                         android:textSize="24sp" />
                 </LinearLayout>
@@ -79,7 +112,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:fontFamily="@font/alata"
-                        android:text="XYZ Problem"
                         android:textColor="@color/AppSecondaryColorX"
                         android:textSize="24sp" />
 
@@ -94,26 +126,24 @@
                     android:paddingBottom="5dp">
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/list_requsted_recycle_view_accept_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/AppPrimaryColorX"
                         android:text="Accept"
-                        android:textSize="20sp"
-                        app:cornerRadius="30dp" />
+                        android:textSize="20sp" />
 
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/list_requsted_recycle_view_reject_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/AppSecondaryColorX"
                         android:text="Reject"
-                        android:textSize="20sp"
-                        app:cornerRadius="30dp" />
+                        android:textSize="20sp" />
                 </LinearLayout>
 
             </LinearLayout>

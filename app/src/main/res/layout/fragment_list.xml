@@ -22,7 +22,7 @@
             app:cardBackgroundColor="@color/AppPrimaryColorX">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
@@ -35,7 +35,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/alata"
                     android:gravity="center"
-                    android:text="Reqested XYZ"
+                    android:text="Patients Requests"
                     android:textSize="20sp"
                     android:textStyle="normal" />
             </androidx.cardview.widget.CardView>
@@ -48,10 +48,36 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/no_patients_request_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="352dp"
+                android:layout_height="446dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/hospital_no_patients" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/alata"
+                android:text="No Patients Requests"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_requested_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>
 

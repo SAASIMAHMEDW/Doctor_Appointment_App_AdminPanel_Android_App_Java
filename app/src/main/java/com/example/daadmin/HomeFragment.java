@@ -3,6 +3,8 @@ package com.example.daadmin;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,29 +16,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
+
+    public String EMAILX;
+    RecyclerView homeRecylerView;
+    CardView no_patients_yet_card;
     String NAME,AGE,EMAIL,PASSWORD,PASSWORD_HINT,GENDER, SPECIALIZATION,ABOUT,STATUS,LOGIN_UID;
     String temp_status;
     ArrayList<homeCardRecycler> card = new ArrayList<>();
+
+    ArrayList<homeCardRecycler> allDataList;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -51,28 +62,109 @@ public class HomeFragment extends Fragment {
     }
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         getBundleData();
+        find_views_by_id(view);
+        get_patients_delayed();
         get_doctor_status_From_DB();
         getDataFromDB();
-        recyler_view(view);
+        setHomeRecylerView_delayed(view);
+//        handle_finished_btn(view);
+//        card_model_delayed();
+//        recyler_view_delayed(view);
         spinner_delayed(view);
 //        spinner_doctor_status(view);
         delayed();
-        // Inflate the layout for this fragment
         return view;
     }
 
-    public void recyler_view(View view){
-        RecyclerView recylerView = view.findViewById(R.id.homeRecylerView);
-        cardModel();
-        homeCardRecylerViewAdapter adapter = new homeCardRecylerViewAdapter((getActivity().getApplicationContext()),card);
-        recylerView.setAdapter(adapter);
-        recylerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
+    public void handle_finished_btn(View view){
+        Button doctor_patients_finished_btn;
+        TextView home_recycle_view_email;
+        home_recycle_view_email = view.findViewById(R.id.home_recycle_view_email);
+        doctor_patients_finished_btn = view.findViewById(R.id.doctor_patients_finished_btn);
+        doctor_patients_finished_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = home_recycle_view_email.getText().toString();
+                Toast.makeText(getContext().getApplicationContext(), email, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setHomeRecylerView(View view){
+    if (allDataList.size()==0){
+        homeRecylerView.setVisibility(View.GONE);
+        no_patients_yet_card.setVisibility(View.VISIBLE);
+    }else {
+        homeRecylerView.setVisibility(View.VISIBLE);
+        no_patients_yet_card.setVisibility(View.GONE);
+        card_model_delayed();
+        recyler_view_delayed(view);
+    }
+}
+
+    public void setHomeRecylerView_delayed(View view){
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            setHomeRecylerView(view);
+        }
+    };
+    Handler handler = new Handler(Looper.getMainLooper());
+    handler.postDelayed(runnable,1600);
+}
+    public void find_views_by_id(View view){
+    no_patients_yet_card = view.findViewById(R.id.no_patients_yet_card);
+    homeRecylerView = view.findViewById(R.id.homeRecylerView);
+
+}
+    public void recyler_view(View view){
+            RecyclerView recylerView = view.findViewById(R.id.homeRecylerView);
+//        cardModel();
+            homeCardRecylerViewAdapter adapter = new homeCardRecylerViewAdapter((getActivity().getApplicationContext()),card);
+            recylerView.setAdapter(adapter);
+            recylerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+
+    }
+
+    public void recyler_view_delayed(View view){
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                recyler_view(view);
+            }
+        };
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(runnable,3200);
+    }
+    public void card_model_delayed(){
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                cardModel();
+            }
+        };
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(runnable,2300);
+    }
+
+    public void get_patients_delayed(){
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                get_patient_book();
+            }
+        };
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(runnable,1300);
     }
 
     public void SpinnerOptions(View view){
@@ -110,17 +202,56 @@ public class HomeFragment extends Fragment {
 
     public void cardModel(){
 
-        String Names[] = {"AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle"};
-        String Problem[] = {"cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz"};
-
-        for (int i = 0; i < Names.length; i++){
-            card.add(new homeCardRecycler(Names[i],Problem[i]));
+        ArrayList<String> NAMES = new ArrayList<>();
+        ArrayList<String> PROBLEMS = new ArrayList<>();
+        ArrayList<String> EMAILS = new ArrayList<>();
+        int count_handling=0;
+        for (int i=0; i<allDataList.size(); i++){
+            if((allDataList.get(i).status).equals("handling")){
+                NAMES.add(allDataList.get(i).name.toString());
+                PROBLEMS.add(allDataList.get(i).problem.toString());
+                EMAILS.add(allDataList.get(i).email.toString());
+            }
         }
+//
+//        for (int i = 0; i < NAMES.size(); i++){
+//            card.add(new homeCardRecycler(NAMES.get(i),PROBLEMS.get(i),EMAILS.get(i),EMAIL));
+//        }
+
+//        String Names[] = {"AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle"};
+//        String Problem[] = {"cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz"};
+        if (NAMES.size()==0){
+            homeRecylerView.setVisibility(View.GONE);
+            no_patients_yet_card.setVisibility(View.VISIBLE);
+        }else {
+            for (int i = 0; i < NAMES.size(); i++){
+                card.add(new homeCardRecycler(NAMES.get(i),PROBLEMS.get(i),EMAILS.get(i),EMAIL));
+            }
+        }
+
+    }
+
+
+    public void get_patient_book(){
+        allDataList = new ArrayList<>();
+        allDataList.clear();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference CR = db.collection("ADMINS").document(EMAIL).collection(EMAIL).document(EMAIL).collection("MY PATIENTS BOOK");
+        CR.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error == null){
+                    List<homeCardRecycler> data = value.toObjects(homeCardRecycler.class);
+                    allDataList.addAll(data);
+                }
+            }
+        });
     }
 
     public void getBundleData(){
         if (getArguments()!=null){
             EMAIL = getArguments().getString("EMAILX");
+            EMAILX =getArguments().getString("EMAILX");
             PASSWORD = getArguments().getString("PASSWORDX");
         }
     }

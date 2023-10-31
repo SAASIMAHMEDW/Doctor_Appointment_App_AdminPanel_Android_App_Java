@@ -1,12 +1,16 @@
 package com.example.daadmin;
 
-public class list_request_card_model {
-    String name,email,problem;
+public class MyPatientsBookModel {
+    String name,email,problem,status;
 
-    public list_request_card_model(String name,String email, String problem) {
+    public MyPatientsBookModel() {
+    }
+
+    public MyPatientsBookModel(String name, String email, String problem, String status) {
         this.name = name;
-        this.problem = problem;
         this.email = email;
+        this.problem = problem;
+        this.status = status;
     }
 
     public String getName() {
@@ -33,4 +37,11 @@ public class list_request_card_model {
         this.problem = problem;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

@@ -64,7 +64,7 @@ public class AdminPanelActivity extends AppCompatActivity {
                 if (id == R.id.nav_home){
                     fragmentLoader(HomeFragment.getInstance(EMAIL,PASSWORD),true);
                 }else if (id == R.id.nav_list){
-                    fragmentLoader(new ListFragment(),false);
+                    fragmentLoader(ListFragment.getInstance(EMAIL,PASSWORD),false);
                 }else {
                     fragmentLoader(ProfileFragment.getInstance(EMAIL,PASSWORD),false);
                 }
