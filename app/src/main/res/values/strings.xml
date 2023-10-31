@@ -41,7 +41,7 @@
 
     <!--    Nav Boootom BAr-->
     <string name="nav_home">Home</string>
-    <string name="nav_lis">List</string>
+    <string name="nav_lis">Request</string>
     <string name="nav_profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
