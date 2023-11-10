@@ -81,7 +81,7 @@ public class list_reqested_recycler_view_model extends RecyclerView.Adapter<list
                     CLICKED_USER_EMAIL = list_reqested_recycle_view_email.getText().toString();
                     CLICKED_USER_PROBLEM = list_reqested_recycle_view_problem.getText().toString();
                     DOC_EMAIL =  list_requsted_recycle_view_doc_email.getText().toString();
-                    handle_accept_btn_delayed();
+                    handle_accept_btn_delayed(v);
                 }
             });
             list_requsted_recycle_view_reject_btn.setOnClickListener(new View.OnClickListener() {
@@ -98,44 +98,47 @@ public class list_reqested_recycler_view_model extends RecyclerView.Adapter<list
             });
         }
 
-        public void handled_reject_btn(){
+        public void handled_reject_btn(View view){
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             DocumentReference DOC_DR = db.collection("ADMINS").document(DOC_EMAIL).collection(DOC_EMAIL).document(DOC_EMAIL).collection("MY REQUESTING PATIENTS BOOK").document(CLICKED_USER_EMAIL);
             DOC_DR.delete();
-            DocumentReference USER_DR = db.collection("USERS").document(CLICKED_USER_EMAIL).collection(CLICKED_USER_EMAIL).document("APPOINTMENT");
-            USER_DR.update("email","NULL","name","NULL","phoneno","NULL","problem","NULL");
+            Toast.makeText(view.getContext().getApplicationContext(), "Request Rejected", Toast.LENGTH_SHORT).show();
+
         }
         public void handled_reject_btn_delayed(View view){
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
 //                    Toast.makeText(view.getContext().getApplicationContext(), "Request Rejected Successfullyt", Toast.LENGTH_SHORT).show();
-                    handled_reject_btn();
+                    handled_reject_btn(view);
                 }
             };
             Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(runnable,3000);
         }
 
-        public void handle_accept_btn_delayed(){
+        public void handle_accept_btn_delayed(View view){
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
 //                    Toast.makeText(view.getContext().getApplicationContext(), "Request Rejected Successfullyt", Toast.LENGTH_SHORT).show();
-                    handle_accept_btn();
+                    handle_accept_btn(view);
                 }
             };
             Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(runnable,3000);
         }
 
-        public void handle_accept_btn(){
+        public void handle_accept_btn(View view){
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             DocumentReference DR = db.collection("ADMINS").document(DOC_EMAIL).collection(DOC_EMAIL).document(DOC_EMAIL).collection("MY PATIENTS BOOK").document(CLICKED_USER_EMAIL);
             MyPatientsBookModel patient = new MyPatientsBookModel(CLICKED_USER_NAME,CLICKED_USER_EMAIL,CLICKED_USER_PROBLEM,"handling");
+            DocumentReference PDR = db.collection("USERS").document(CLICKED_USER_EMAIL).collection(CLICKED_USER_EMAIL).document("APPOINTMENT");
+            PDR.update("status","handling");
             DR.set(patient);
             DocumentReference DEL_DR = db.collection("ADMINS").document(DOC_EMAIL).collection(DOC_EMAIL).document(DOC_EMAIL).collection("MY REQUESTING PATIENTS BOOK").document(CLICKED_USER_EMAIL);
             DEL_DR.delete();
+            Toast.makeText(view.getContext().getApplicationContext(), "Request Accepted", Toast.LENGTH_SHORT).show();
         }
 
 

@@ -7,6 +7,30 @@
     android:orientation="vertical"
     tools:context=".AdminPanelActivity">
 
+    <FrameLayout
+        android:id="@+id/adminpanelContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_marginBottom="?attr/actionBarSize"
+
+        />
+    <!--    android:layout_marginBottom="?attr/actionBarSize"-->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/adminPanelBottomViewNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@drawable/bottom_nav_item_background"
+        android:background="@color/AppThirdColorX"
+        app:menu="@menu/admin_option_menu"
+        tools:ignore="VisualLintBottomNav">
+        <!--        android:background="@drawable/bottom_navbar_selected_item_bgcolor"-->
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</RelativeLayout>
+
 <!--    <LinearLayout-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
@@ -76,26 +100,3 @@
 <!--            android:textStyle="bold" />-->
 <!--    </LinearLayout>-->
 
-    <FrameLayout
-        android:id="@+id/adminpanelContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:layout_marginBottom="?attr/actionBarSize"
-
-        />
-<!--    android:layout_marginBottom="?attr/actionBarSize"-->
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/adminPanelBottomViewNav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="@drawable/bottom_nav_item_background"
-        android:background="@color/AppThirdColorX"
-        app:menu="@menu/admin_option_menu"
-        >
-<!--        android:background="@drawable/bottom_navbar_selected_item_bgcolor"-->
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-</RelativeLayout>

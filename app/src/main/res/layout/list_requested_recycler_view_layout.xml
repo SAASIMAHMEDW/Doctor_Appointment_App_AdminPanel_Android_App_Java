@@ -30,7 +30,8 @@
                     android:id="@+id/list_requsted_recycle_view_doc_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="doc email" />
+                    android:hint="doc email"
+                    android:visibility="invisible" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
