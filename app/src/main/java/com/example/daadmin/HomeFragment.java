@@ -1,5 +1,7 @@
 package com.example.daadmin;
 
+import static java.lang.Thread.sleep;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -62,8 +64,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,18 +72,103 @@ public class HomeFragment extends Fragment {
         getBundleData();
         find_views_by_id(view);
         get_patients_delayed();
-        get_doctor_status_From_DB();
-        getDataFromDB();
+//        get_doctor_status_From_DB();
+        get_doctor_status_From_DB_thread();
+//        getDataFromDB();
+        getDataFromDB_thread();
         setHomeRecylerView_delayed(view);
 //        handle_finished_btn(view);
 //        card_model_delayed();
 //        recyler_view_delayed(view);
-        spinner_delayed(view);
+        handle_task_thread_spinner(view);
+//        spinner_delayed(view);
 //        spinner_doctor_status(view);
         delayed();
         return view;
     }
 
+    public void get_doctor_status_From_DB_thread() {
+        Thread thread = new Thread(() -> {
+            try {
+                get_doctor_status_From_DB();
+            } catch (Exception ignored){}
+        });thread.start();
+    }
+    public void get_doctor_status_From_DB(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference DR = db.collection("ADMINS").document(EMAIL).collection(EMAIL).document("PROFILE");
+        DR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                temp_status = documentSnapshot.get("status").toString();
+            }
+        });
+    }
+
+
+    public void spinner_delayed(View view){
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                SpinnerOptions(view);
+                spinner_doctor_status(view);
+            }
+        };
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(runnable,7000);
+    }
+
+    public void SpinnerOptions(View view){
+        Spinner spinner_doctor_status;
+        ArrayList<String> doctorStatus = new ArrayList<>();
+        spinner_doctor_status = view.findViewById(R.id.spinner_doctor_status);
+        doctorStatus.add("Available");
+        doctorStatus.add("Holiday");
+        doctorStatus.add("Busy");
+        ArrayAdapter<String> spinnerAdaptor = new ArrayAdapter<>(getContext().getApplicationContext(), android.R.layout.simple_list_item_activated_1,doctorStatus);
+        spinner_doctor_status.setBackgroundColor(getResources().getColor(R.color.AppPrimaryColorX));
+        spinner_doctor_status.setDropDownWidth(500);
+        spinner_doctor_status.setMinimumHeight(200);
+        spinner_doctor_status.setElevation(50f);
+        spinner_doctor_status.setAdapter(spinnerAdaptor);
+        spinner_doctor_status.setSelection(set_spinner_option(STATUS));
+    }
+
+    public int set_spinner_option(String STATUS){
+        if(STATUS.equals("Available"))
+            return 0;
+        else if (STATUS.equals("Holiday")) {
+            return 1;
+        }else {
+            return 2;
+        }
+    }
+
+    public void spinner_doctor_status(View view){
+        Spinner spinner_doctor_status;
+        spinner_doctor_status = view.findViewById(R.id.spinner_doctor_status);
+        spinner_doctor_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selected_val=spinner_doctor_status.getSelectedItem().toString();
+                STATUS = selected_val;
+                delayed();
+//                Toast.makeText(getContext().getApplicationContext(), selected_val ,Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    public void handle_task_thread_spinner(View view){
+        Thread thread = new Thread(() -> {
+            try {
+                sleep(2000);
+            }catch (Exception e){}
+            finally { spinner_delayed(view); }
+        });thread.start();
+    }
 
     public void handle_finished_btn(View view){
         Button doctor_patients_finished_btn;
@@ -167,38 +252,6 @@ public class HomeFragment extends Fragment {
         handler.postDelayed(runnable,1300);
     }
 
-    public void SpinnerOptions(View view){
-        Spinner spinner_doctor_status;
-        ArrayList<String> doctorStatus = new ArrayList<>();
-        spinner_doctor_status = view.findViewById(R.id.spinner_doctor_status);
-        doctorStatus.add("Available");
-        doctorStatus.add("Holiday");
-        doctorStatus.add("Busy");
-//        ArrayAdapter<String> spinnerAdaptor = new ArrayAdapter<>(getContext().getApplicationContext(), android.R.layout.select_dialog_singlechoice,doctorStatus);
-//        ArrayAdapter<String> spinnerAdaptor = new ArrayAdapter<>(getContext().getApplicationContext(), android.R.layout.simple_list_item_activated_1,doctorStatus);
-        ArrayAdapter<String> spinnerAdaptor = new ArrayAdapter<>(getContext().getApplicationContext(), android.R.layout.simple_list_item_activated_1,doctorStatus);
-//        ArrayAdapter<String> spinnerAdaptor = new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.spinner_dropdown_item,doctorStatus);
-//        spinnerAdaptor.setDropDownViewResource(R.layout.spinner_dropdown_item);
-//        ArrayAdapter<String> spinnerAdaptor = new ArrayAdapter<>(getContext().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,doctorStatus);
-        spinner_doctor_status.setBackgroundColor(getResources().getColor(R.color.AppPrimaryColorX));
-        spinner_doctor_status.setDropDownWidth(500);
-        spinner_doctor_status.setMinimumHeight(200);
-        spinner_doctor_status.setElevation(50f);
-        spinner_doctor_status.setAdapter(spinnerAdaptor);
-        spinner_doctor_status.setSelection(set_spinner_option(STATUS));
-    }
-
-    public void spinner_delayed(View view){
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                SpinnerOptions(view);
-                spinner_doctor_status(view);
-            }
-        };
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(runnable,2000);
-    }
 
     public void cardModel(){
 
@@ -236,14 +289,11 @@ public class HomeFragment extends Fragment {
         allDataList = new ArrayList<>();
         allDataList.clear();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference CR = db.collection("ADMINS").document(EMAIL).collection(EMAIL).document(EMAIL).collection("MY PATIENTS BOOK");
-        CR.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error == null){
-                    List<homeCardRecycler> data = value.toObjects(homeCardRecycler.class);
-                    allDataList.addAll(data);
-                }
+        CollectionReference CR = db.collection("ADMINS").document(EMAIL).collection(EMAIL).document(EMAIL).collection("MY HANDLING PATIENTS BOOK");
+        CR.addSnapshotListener((value, error) -> {
+            if (error == null){
+                List<homeCardRecycler> data = value.toObjects(homeCardRecycler.class);
+                allDataList.addAll(data);
             }
         });
     }
@@ -254,23 +304,6 @@ public class HomeFragment extends Fragment {
             EMAILX =getArguments().getString("EMAILX");
             PASSWORD = getArguments().getString("PASSWORDX");
         }
-    }
-
-    public void spinner_doctor_status(View view){
-        Spinner spinner_doctor_status;
-        spinner_doctor_status = view.findViewById(R.id.spinner_doctor_status);
-        spinner_doctor_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selected_val=spinner_doctor_status.getSelectedItem().toString();
-                STATUS = selected_val;
-                delayed();
-//                Toast.makeText(getContext().getApplicationContext(), selected_val ,Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
     }
     
     public void get_doctor_login_UID_From_DB(){
@@ -288,46 +321,12 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public void get_doctor_status_From_DB(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference DR = db.collection("ADMINS").document(EMAIL).collection(EMAIL).document("PROFILE");
-        DR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                Toast.makeText(getContext().getApplicationContext(), documentSnapshot.get("passwordHint").toString(), Toast.LENGTH_SHORT).show();
-//                String uid = documentSnapshot.get("login_uid").toString();
-                temp_status = documentSnapshot.get("status").toString();
-//                STATUS = temp_status;
-//                getProfileData(name,age,passwordHint,gender,ds,about);
-//                Toast.makeText(getContext().getApplicationContext(), uid, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     public void setDoctorStatusData_in_REALTIME_DB(){
-//        DatabaseReference myRef;
-//        myRef = FirebaseDatabase.getInstance().getReference();
         doctorDataModel data = new doctorDataModel(NAME,EMAIL,PASSWORD,LOGIN_UID,STATUS);
-//        myRef.child("TEST").child(LOGIN_UID).setValue(data);
-        // Write a message to the database
         FirebaseDatabase database;
         DatabaseReference dbRef;
         database = FirebaseDatabase.getInstance();
         dbRef = database.getReference("ADMINS ROOT").child(LOGIN_UID);
-//        dbRef = database.getReference("ADMINS ROOT");
-
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference(LOGIN_UID);
-//        dbRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                dbRef.child(LOGIN_UID).setValue(data);
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
         dbRef.setValue(data);
 
     }
@@ -341,9 +340,16 @@ public class HomeFragment extends Fragment {
             }
         };
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(runnable,2000);
+        handler.postDelayed(runnable,5000);
     }
+public void getDataFromDB_thread(){
+        Thread thread = new Thread(){
+            public void run(){
+                getDataFromDB();
+            }
 
+        };thread.start();
+}
     public void getDataFromDB(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference DR = db.collection("ADMINS").document(EMAIL).collection(EMAIL).document("PROFILE");
@@ -377,15 +383,7 @@ public class HomeFragment extends Fragment {
         STATUS = status;
     }
 
-    public int set_spinner_option(String STATUS){
-        if(STATUS.equals("Available"))
-            return 0;
-        else if (STATUS.equals("Holiday")) {
-            return 1;
-        }else {
-            return 2;
-        }
-    }
+
 
     public void set_Updated_status_in_firestore(){
         FirebaseFirestore db;

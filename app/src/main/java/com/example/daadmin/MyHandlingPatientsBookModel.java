@@ -1,12 +1,12 @@
 package com.example.daadmin;
 
-public class MyPatientsBookModel {
+public class MyHandlingPatientsBookModel {
     String name,email,problem,status;
 
-    public MyPatientsBookModel() {
+    public MyHandlingPatientsBookModel() {
     }
 
-    public MyPatientsBookModel(String name, String email, String problem, String status) {
+    public MyHandlingPatientsBookModel(String name, String email, String problem, String status) {
         this.name = name;
         this.email = email;
         this.problem = problem;

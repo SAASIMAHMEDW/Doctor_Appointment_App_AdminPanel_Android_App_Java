@@ -21,10 +21,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 public class homeCardRecylerViewAdapter extends RecyclerView.Adapter<homeCardRecylerViewAdapter.MyViewHolder>{
-
-
+    int POSITION;
+    String CLICKED_EMAIL,DOCTOR_EMAIL;
     Context con;
-    ArrayList<homeCardRecycler> card;
+   static ArrayList<homeCardRecycler> card;
     public homeCardRecylerViewAdapter(Context con, ArrayList<homeCardRecycler> card){
         this.con = con;
         this.card = card;
@@ -41,11 +41,78 @@ public class homeCardRecylerViewAdapter extends RecyclerView.Adapter<homeCardRec
 
     @Override
     public void onBindViewHolder(@NonNull homeCardRecylerViewAdapter.MyViewHolder holder, int position) {
-     
-        holder.home_recycle_view_name.setText(card.get(position).getName());
-        holder.home_recycle_view_email.setText(card.get(position).getEmail());
-        holder.home_recycle_view_problem.setText(card.get(position).getProblem());
-        holder.doctor_email.setText(card.get(position).getDoctor_email());
+        holder.home_recycle_view_name.setText(card.get(holder.getAdapterPosition()).getName());
+        holder.home_recycle_view_email.setText(card.get(holder.getAdapterPosition()).getEmail());
+        holder.home_recycle_view_problem.setText(card.get(holder.getAdapterPosition()).getProblem());
+        holder.doctor_email.setText(card.get(holder.getAdapterPosition()).getDoctor_email());
+//        CLICKED_EMAIL = card.get(holder.getAdapterPosition()).email;
+        DOCTOR_EMAIL = holder.doctor_email.getText().toString();
+        holder.doctor_patients_finished_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                POSITION = holder.getAdapterPosition();
+                CLICKED_EMAIL = card.get(POSITION).email;
+                card.remove(POSITION);
+                notifyItemRemoved(POSITION);
+//                update_status(v);
+                handle_task_thread_helper(v);
+                new Thread(() -> update_user_notification()).start();
+            }
+        });
+    }
+
+    public void handle_task_thread_helper(View view){
+        Thread thread = new Thread(){
+            public void run(){
+                try {
+                    update_status(view);
+                }catch (Exception ignored){}
+            }
+        };thread.start();
+    }
+    public void update_status(View view){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        DocumentReference HANDLED_DR = db.collection("ADMINS").document(DOCTOR_EMAIL).collection(DOCTOR_EMAIL).document(DOCTOR_EMAIL).collection("MY HANDLED PATIENTS BOOK").document(CLICKED_EMAIL);
+        HANDLED_DR.update("status","handled");
+
+        DocumentReference HANDLING_DR = db.collection("ADMINS").document(DOCTOR_EMAIL).collection(DOCTOR_EMAIL).document(DOCTOR_EMAIL).collection("MY HANDLING PATIENTS BOOK").document(CLICKED_EMAIL);
+        HANDLING_DR.delete();
+
+//        DocumentReference DR = db.collection("ADMINS").document(DOCTOR_EMAIL).collection(DOCTOR_EMAIL).document(DOCTOR_EMAIL).collection("MY PATIENTS BOOK").document(CLICKED_EMAIL);
+
+        DocumentReference USER_DR = db.collection("USERS").document(CLICKED_EMAIL).collection(CLICKED_EMAIL).document("APPOINTMENT");
+        USER_DR.update("email","NULL","name","NULL","phoneno","NULL","problem","NULL");
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(con, "Successfully Handled", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+//        DR.update("status","finished").addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()){
+//                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast toast = Toast.makeText(con, "Successfully Handled", Toast.LENGTH_SHORT);
+//                            toast.show();
+//                        }
+//                    });
+////                    Toast.makeText(view.getContext().getApplicationContext(), "Finished Successfully", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+    }
+    public void update_user_notification(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        DocumentReference NOTIFICATION_DR = db.collection("USERS").document(CLICKED_EMAIL).collection(CLICKED_EMAIL).document("NOTIFICATION");
+        DocumentReference NOTIFICATION_DR = db.collection("USERS").document(CLICKED_EMAIL).collection(CLICKED_EMAIL).document(CLICKED_EMAIL).collection("NOTIFICATION").document("APPOINTMENT STATUS NOTIFICATION");
+        NOTIFICATION_DR.update("status","finished");
+
     }
 
     @Override
@@ -56,34 +123,33 @@ public class homeCardRecylerViewAdapter extends RecyclerView.Adapter<homeCardRec
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         String CLICKED_EMAIL,DOCTOR_EMAIL;
-
         TextView home_recycle_view_name;
         TextView home_recycle_view_problem;
         TextView home_recycle_view_email;
         TextView doctor_email;
         Button doctor_patients_finished_btn;
-
-
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
-
             doctor_patients_finished_btn = itemView.findViewById(R.id.doctor_patients_finished_btn);
             home_recycle_view_name = itemView.findViewById(R.id.home_recycle_view_name);
             home_recycle_view_email = itemView.findViewById(R.id.home_recycle_view_email);
             home_recycle_view_problem = itemView.findViewById(R.id.home_recycle_view_problem);
             doctor_email = itemView.findViewById(R.id.doctor_email);
-            doctor_patients_finished_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CLICKED_EMAIL = home_recycle_view_email.getText().toString();
-                    DOCTOR_EMAIL = doctor_email.getText().toString();
-//                    Toast.makeText(v.getContext().getApplicationContext(), DOCTOR_EMAIL, Toast.LENGTH_SHORT).show();
-                    update_status_dalayed(v);
-//                    update_status(email,v);
 
-                }
-            });
+
+//            doctor_patients_finished_btn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    CLICKED_EMAIL = home_recycle_view_email.getText().toString();
+//                    DOCTOR_EMAIL = doctor_email.getText().toString();
+//                     card.remove(sub_posion);
+//                     notifyItemRemoved(sub_posion);
+//                     Toast.makeText(v.getContext().getApplicationContext(), ""+sub_posion, Toast.LENGTH_SHORT).show();
+//                    update_status_dalayed(v);
+//                    update_status(email,v);
+//
+//                }
+//            });
         }
 
         public void update_status_dalayed(View view){

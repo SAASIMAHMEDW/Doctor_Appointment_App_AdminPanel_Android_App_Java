@@ -108,7 +108,7 @@
                             android:autofillHints=""
                             android:ems="10"
                             android:hint="@string/LoginPassword"
-                            android:inputType="text"
+                            android:inputType="text|textPassword"
                             android:minHeight="48dp"
                             android:textColorHint="@color/AppFourthColorX" />
 

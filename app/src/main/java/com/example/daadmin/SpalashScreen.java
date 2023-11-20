@@ -23,6 +23,7 @@ public class SpalashScreen extends AppCompatActivity {
                 }finally {
                     Intent intent = new Intent(SpalashScreen.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         };thread.start();

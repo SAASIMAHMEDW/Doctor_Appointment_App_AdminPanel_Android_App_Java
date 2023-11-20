@@ -149,8 +149,9 @@
 
                         <Button
                             android:id="@+id/doctor_patients_finished_btn"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="30dp"
                             android:backgroundTint="@color/AppFourthColorX"
                             android:clickable="true"
                             android:fontFamily="@font/alata"
