@@ -25,5 +25,6 @@ public class AdminRegisterActivity extends AppCompatActivity {
     public void goAdminPanel(){
         Intent AdminPanelIntent = new Intent(AdminRegisterActivity.this, AdminPanelActivity.class);
         startActivity(AdminPanelIntent);
+        finish();
     }
 }

@@ -1,5 +1,10 @@
 package com.example.daadmin;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,12 +18,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,6 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -35,15 +44,16 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
-    String NAME,AGE,EMAIL,PASSWORD,PASSWORD_HINT,GENDER, SPECIALIZATION,ABOUT,STATUS;
-    String UPDATED_NAME,UPDATED_AGE,UPDATED_EMAIL,UPDATED_PASSWORD,UPDATED_PASSWORD_HINT,UPDATED_GENDER, UPDATED_SPECIALIZATION,UPDATED_ABOUT,UPDATED_STATUS;
+    String NAME,AGE,EMAIL,PASSWORD,PASSWORD_HINT,GENDER, SPECIALIZATION,ABOUT,STATUS,PROFILE_PIC,PHONE_NUMBER,LOGIN_UID;
+    String UPDATED_NAME,UPDATED_AGE,UPDATED_EMAIL,UPDATED_PASSWORD,UPDATED_PASSWORD_HINT,UPDATED_GENDER, UPDATED_SPECIALIZATION,UPDATED_ABOUT,UPDATED_STATUS,UPDATED_PHONE_NUMBER;
 
     ArrayList<adminUserModel> allDataList;
     ArrayList<String> SingleDataList;
 
-    EditText adminDoctorProfile_name,adminDoctorProfile_age,adminDoctorProfile_email,adminDoctorProfile_password,adminDoctorProfile_password_hint,adminDoctorProfile_gender,adminDoctorProfile_specilization,adminDoctorProfile_about,adminDoctorProfile_status;
+    EditText adminDoctorProfile_name,adminDoctorProfile_age,adminDoctorProfile_email,adminDoctorProfile_password,adminDoctorProfile_password_hint,adminDoctorProfile_gender,adminDoctorProfile_specilization,adminDoctorProfile_about,adminDoctorProfile_status,adminDoctorProfile_phoneNo;
     Button adminDoctorProfile_updaterProfile;
-    Button adminDoctorProfile_edit;
+    Button adminDoctorProfile_edit,adminDoctorProfile_logout_btn;
+    ImageView profile_fragment_profile_pic;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -90,12 +100,29 @@ public class ProfileFragment extends Fragment {
                 updateProfile(view);
             }
         });
+        adminDoctorProfile_logout_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleLogout(v);
+            }
+        });
         progressBar(view,true);
         delayed(view);
 
         // Inflate the layout for this fragment
         return view;
     }
+
+    public void handleLogout(View v){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.example.daadmin_user_login",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+        Intent intent = new Intent(v.getContext().getApplicationContext(), AdminLoginActivity.class);
+        startActivity(intent);
+        getActivity().finishAffinity();
+    }
+
 
     public void getBundleData(){
         if (getArguments()!=null){
@@ -106,6 +133,7 @@ public class ProfileFragment extends Fragment {
     public void setProfileData(View view){
         adminDoctorProfile_name.setHint(NAME);
         adminDoctorProfile_age.setHint(AGE);
+        adminDoctorProfile_phoneNo.setHint(PHONE_NUMBER);
         adminDoctorProfile_email.setHint(EMAIL);
         adminDoctorProfile_password.setHint(PASSWORD);
         adminDoctorProfile_password_hint.setHint(PASSWORD_HINT);
@@ -127,6 +155,7 @@ public class ProfileFragment extends Fragment {
             adminDoctorProfile_specilization.setEnabled(true);
             adminDoctorProfile_about.setEnabled(true);
             adminDoctorProfile_status.setEnabled(true);
+            adminDoctorProfile_phoneNo.setEnabled(true);
 
         adminDoctorProfile_edit.setVisibility(View.GONE);
         adminDoctorProfile_updaterProfile.setVisibility(View.VISIBLE);
@@ -137,6 +166,7 @@ public class ProfileFragment extends Fragment {
     public void updateProfile(View view){
         adminDoctorProfile_name.setEnabled(false);
         adminDoctorProfile_age.setEnabled(false);
+        adminDoctorProfile_phoneNo.setEnabled(false);
         adminDoctorProfile_email.setEnabled(false);
         adminDoctorProfile_password.setEnabled(false);
         adminDoctorProfile_password_hint.setEnabled(false);
@@ -149,6 +179,7 @@ public class ProfileFragment extends Fragment {
         get_Updated_Data();
         adminDoctorProfile_name.setHint(UPDATED_NAME);
         adminDoctorProfile_age.setHint(UPDATED_AGE);
+        adminDoctorProfile_phoneNo.setHint(UPDATED_PHONE_NUMBER);
         adminDoctorProfile_email.setHint(UPDATED_EMAIL);
         adminDoctorProfile_password.setHint(UPDATED_PASSWORD);
         adminDoctorProfile_password_hint.setHint(UPDATED_PASSWORD_HINT);
@@ -225,6 +256,11 @@ public class ProfileFragment extends Fragment {
         }else {
             UPDATED_STATUS = adminDoctorProfile_status.getText().toString();
         }
+        if ((adminDoctorProfile_phoneNo.getText().toString()).length()==0){
+            UPDATED_PHONE_NUMBER = adminDoctorProfile_phoneNo.getHint().toString();
+        }else {
+            UPDATED_PHONE_NUMBER = adminDoctorProfile_phoneNo.getText().toString();
+        }
 
     }
 
@@ -242,6 +278,10 @@ public class ProfileFragment extends Fragment {
 
         adminDoctorProfile_updaterProfile = view.findViewById(R.id.adminDoctorProfile_updaterProfile);
         adminDoctorProfile_edit = view.findViewById(R.id.adminDoctorProfile_edit);
+        adminDoctorProfile_logout_btn = view.findViewById(R.id.adminDoctorProfile_logout_btn);
+        profile_fragment_profile_pic = view.findViewById(R.id.profile_fragment_profile_pic);
+        adminDoctorProfile_phoneNo = view.findViewById(R.id.adminDoctorProfile_phoneNo);
+
     }
 
     public void getDataFromDB(){
@@ -258,15 +298,19 @@ public class ProfileFragment extends Fragment {
                         gender =  documentSnapshot.get("gender").toString(),
                         ds = documentSnapshot.get("doctorSpeci").toString(),
                         about =documentSnapshot.get("aboutYourSelf").toString(),
-                        status =documentSnapshot.get("status").toString();
-                getProfileData(name,age,passwordHint,gender,ds,about,status);
+                        status =documentSnapshot.get("status").toString(),
+                        profile_pic = documentSnapshot.get("profile_url").toString(),
+                        phone_number = documentSnapshot.get("phone_no").toString(),
+                        loginUID = documentSnapshot.get("phone_no").toString();
+                Picasso.get().load(profile_pic).into(profile_fragment_profile_pic);
+                getProfileData(name,age,passwordHint,gender,ds,about,status,profile_pic,phone_number,loginUID);
 //                Toast.makeText(getContext().getApplicationContext(), documentSnapshot.get("name").toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
-    public void getProfileData(String name,String age,String passwordHint,String gender,String doctorSpeci,String aboutYourSelf,String status){
+    public void getProfileData(String name,String age,String passwordHint,String gender,String doctorSpeci,String aboutYourSelf,String status,String profile_pic,String phone_number,String loginUID){
         NAME = name;
         AGE =age;
         PASSWORD_HINT = passwordHint;
@@ -274,6 +318,9 @@ public class ProfileFragment extends Fragment {
         SPECIALIZATION = doctorSpeci;
         ABOUT =aboutYourSelf;
         STATUS = status;
+        PROFILE_PIC = profile_pic;
+        PHONE_NUMBER = phone_number;
+        LOGIN_UID = loginUID;
     }
 
     public void delayed(View view){
@@ -303,7 +350,7 @@ public class ProfileFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         DocumentReference DR = db.collection("ADMINS").document(EMAIL).collection(EMAIL).document("PROFILE");
 
-        DR.update("name",UPDATED_NAME, "age",UPDATED_AGE,"email",UPDATED_EMAIL,"password",UPDATED_PASSWORD,"passwordHint",UPDATED_PASSWORD_HINT,"gender",UPDATED_GENDER,"status",UPDATED_STATUS,"doctorSpeci",UPDATED_SPECIALIZATION,"aboutYourSelf",UPDATED_ABOUT).addOnCompleteListener(new OnCompleteListener<Void>() {
+        DR.update("name",UPDATED_NAME, "age",UPDATED_AGE,"email",UPDATED_EMAIL,"password",UPDATED_PASSWORD,"passwordHint",UPDATED_PASSWORD_HINT,"gender",UPDATED_GENDER,"status",UPDATED_STATUS,"doctorSpeci",UPDATED_SPECIALIZATION,"aboutYourSelf",UPDATED_ABOUT,"phone_no",UPDATED_PHONE_NUMBER).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
@@ -314,6 +361,15 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
+    public void setUpdatedPhoneNoInRealtimeDB(){
+        FirebaseDatabase database;
+        DatabaseReference dbRef;
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference("ADMINS ROOT").child(LOGIN_UID);
+//        dbRef.updateChildren()
+    }
+
 
     public void delayed(){
         Runnable runnable = new Runnable() {

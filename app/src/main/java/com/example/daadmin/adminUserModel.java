@@ -9,12 +9,14 @@ public class adminUserModel {
     String login_uid;
     String adminID;
     String Status;
+    String profile_url;
+    String phone_no;
 
     public adminUserModel() {
     }
 
 
-    public adminUserModel(String name, String age, String email, String password, String passwordHint, String gender, String aboutYourSelf, String doctorSpeci, String firestore_uid, String login_uid,String adminID,String Status) {
+    public adminUserModel(String name, String age, String email, String password, String passwordHint, String gender, String aboutYourSelf, String doctorSpeci, String firestore_uid, String login_uid,String adminID,String Status,String profile_url,String phone_no) {
         this.name = name;
         this.age = age;
         this.email = email;
@@ -27,6 +29,24 @@ public class adminUserModel {
         this.login_uid = login_uid;
         this.adminID= adminID;
         this.Status = Status;
+        this.profile_url =profile_url;
+        this.phone_no =phone_no;
+    }
+
+    public String getPhone_no() {
+        return phone_no;
+    }
+
+    public void setPhone_no(String phone_no) {
+        this.phone_no = phone_no;
+    }
+
+    public String getProfile_url() {
+        return profile_url;
+    }
+
+    public void setProfile_url(String profile_url) {
+        this.profile_url = profile_url;
     }
 
     public String getName() {

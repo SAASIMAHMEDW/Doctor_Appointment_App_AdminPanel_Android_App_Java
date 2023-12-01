@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -152,7 +156,7 @@ public class HomeFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selected_val=spinner_doctor_status.getSelectedItem().toString();
                 STATUS = selected_val;
-                delayed();
+                delayed_upadte_doctor_status_realtime();
 //                Toast.makeText(getContext().getApplicationContext(), selected_val ,Toast.LENGTH_SHORT).show();
             }
             @Override
@@ -322,12 +326,15 @@ public class HomeFragment extends Fragment {
     }
 
     public void setDoctorStatusData_in_REALTIME_DB(){
-        doctorDataModel data = new doctorDataModel(NAME,EMAIL,PASSWORD,LOGIN_UID,STATUS);
+//        doctorDataModel data = new doctorDataModel(NAME,EMAIL,PASSWORD,LOGIN_UID,STATUS);
         FirebaseDatabase database;
         DatabaseReference dbRef;
         database = FirebaseDatabase.getInstance();
         dbRef = database.getReference("ADMINS ROOT").child(LOGIN_UID);
-        dbRef.setValue(data);
+        Map<String, Object> data = new HashMap<>();
+        data.put("status",STATUS);
+        dbRef.updateChildren(data);
+//        dbRef.setValue(data);
 
     }
     public void delayed(){
@@ -342,6 +349,18 @@ public class HomeFragment extends Fragment {
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(runnable,5000);
     }
+    public void delayed_upadte_doctor_status_realtime(){
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                setDoctorStatusData_in_REALTIME_DB();
+                set_Updated_status_in_firestore();
+//                Toast.makeText(getContext().getApplicationContext(), LOGIN_UID, Toast.LENGTH_SHORT).show();
+            }
+        };
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(runnable,2000);
+    }
 public void getDataFromDB_thread(){
         Thread thread = new Thread(){
             public void run(){
@@ -353,7 +372,6 @@ public void getDataFromDB_thread(){
     public void getDataFromDB(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference DR = db.collection("ADMINS").document(EMAIL).collection(EMAIL).document("PROFILE");
-        CollectionReference CR = db.collection("ADMINS").document(EMAIL).collection(EMAIL);
         DR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

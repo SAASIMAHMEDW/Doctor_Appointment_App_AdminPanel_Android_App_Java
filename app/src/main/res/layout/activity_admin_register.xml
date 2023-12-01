@@ -132,6 +132,25 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="30dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/doctor_phone_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="Phone no."
+                            android:inputType="phone"
+                            android:textColorHint="@color/AppFourthColorX"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:orientation="horizontal">
@@ -179,6 +198,7 @@
                                 android:id="@+id/adminPasswordHint"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
                                 android:layout_weight="1"
                                 android:autofillHints=""
                                 android:ems="10"
@@ -392,6 +412,42 @@
 
                             </LinearLayout>
 
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView21"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textSize="17sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/alata"
+                                android:textColor="@color/AppFourthColorX"
+                                android:layout_gravity="center"
+                                android:text="@string/select_profile_picture" />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/register_doctor_profile_pic"
+                                android:layout_width="69dp"
+                                android:layout_height="69dp"
+                                android:layout_marginRight="20dp"
+                                android:clickable="true"
+                                android:contentDescription="@string/register_profile_pic"
+                                android:src="@drawable/nav_profile"
+                                app:civ_border_color="@color/AppFourthColorX"
+                                app:civ_border_width="2dp" />
                         </LinearLayout>
                     </LinearLayout>
 

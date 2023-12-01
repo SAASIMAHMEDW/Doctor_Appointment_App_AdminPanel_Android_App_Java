@@ -94,7 +94,11 @@ public class AdminPanelActivity extends AppCompatActivity {
 
     public void getIntentData(){
         Intent intent = getIntent();
-        EMAIL = intent.getStringExtra("EMAILX");
+        String login_email =  intent.getStringExtra("EMAILX");
+        String SP_email =  intent.getStringExtra("SP_EMAIL");
+
+        if (SP_email!=null) EMAIL = SP_email;
+        else EMAIL = login_email;
         PASSWORD = intent.getStringExtra("PASSWORDX");
     }
 

@@ -88,29 +88,49 @@
                             android:id="@+id/adminLoginEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="-50dp"
-                            android:layout_marginRight="30dp"
+                            android:layout_marginRight="15dp"
                             android:autofillHints=""
                             android:ems="10"
+                            android:fontFamily="@font/alata"
                             android:hint="@string/LoginEmail"
                             android:inputType="text"
                             android:minHeight="48dp"
                             android:textColorHint="@color/AppFourthColorX" />
 
-                        <EditText
-                            android:id="@+id/adminLoginPassword"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="30dp"
-                            android:layout_marginRight="30dp"
-                            android:autofillHints=""
-                            android:ems="10"
-                            android:hint="@string/LoginPassword"
-                            android:inputType="text|textPassword"
-                            android:minHeight="48dp"
-                            android:textColorHint="@color/AppFourthColorX" />
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/adminLoginPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:autofillHints=""
+                                android:ems="10"
+                                android:fontFamily="@font/alata"
+                                android:hint="@string/LoginPassword"
+                                android:inputType="text|textPassword"
+                                android:minHeight="48dp"
+                                android:textColorHint="@color/AppFourthColorX" />
+
+                            <CheckBox
+                                android:id="@+id/show_hide_password_checkbox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginTop="-10dp"
+                                android:fontFamily="@font/alata"
+                                android:text="Show Password"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <Button
                             android:id="@+id/adminLoginBTN"
