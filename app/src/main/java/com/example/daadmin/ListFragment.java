@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
@@ -28,6 +30,8 @@ import java.util.List;
 
 public class ListFragment extends Fragment {
 
+    TextView loadingListText;
+    ProgressBar progressBarList;
     String DOC_EMAIL,DOC_PASSWORD;
     LinearLayout no_patients_request_layout;
     RecyclerView recylerView;
@@ -44,18 +48,12 @@ public class ListFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("EMAILX",email);
         bundle.putString("PASSWORDX",password);
-
         listFragment.setArguments(bundle);
-
         return listFragment;
-
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view =  inflater.inflate(R.layout.fragment_list, container, false);
         find_views_by_id(view);
         getBundleData();
@@ -70,14 +68,18 @@ public class ListFragment extends Fragment {
     public void find_views_by_id(View view){
         no_patients_request_layout = view.findViewById(R.id.no_patients_request_layout);
         recylerView  = view.findViewById(R.id.list_requested_recycler_view);
+        loadingListText  = view.findViewById(R.id.loadingListText);
+        progressBarList  = view.findViewById(R.id.progressBarList);
     }
 
     public void setRequestListRecylerView(View view){
         if (allDataList.size()==0){
+            loadingListText.setVisibility(View.GONE);
+            progressBarList.setVisibility(View.GONE);
             recylerView.setVisibility(View.GONE);
             no_patients_request_layout.setVisibility(View.VISIBLE);
         }else {
-            recylerView.setVisibility(View.VISIBLE);
+//            recylerView.setVisibility(View.VISIBLE);
             no_patients_request_layout.setVisibility(View.GONE);
             card_model_delayed();
             recyler_view_delayed(view);
@@ -96,7 +98,9 @@ public class ListFragment extends Fragment {
     }
 
     public void recyler_view(View view){
-
+        recylerView.setVisibility(View.VISIBLE);
+        loadingListText.setVisibility(View.GONE);
+        progressBarList.setVisibility(View.GONE);
 //        cardModel();
         list_reqested_recycler_view_model adapter = new list_reqested_recycler_view_model((getActivity().getApplicationContext()),card);
         recylerView.setAdapter(adapter);
@@ -159,7 +163,6 @@ public class ListFragment extends Fragment {
     }
 
     public void cardModel() {
-
         ArrayList<String> NAMES = new ArrayList<>();
         ArrayList<String> PROBLEMS = new ArrayList<>();
         ArrayList<String> EMAILS = new ArrayList<>();
@@ -174,6 +177,8 @@ public class ListFragment extends Fragment {
         }
 
         if (NAMES.size()==0){
+            loadingListText.setVisibility(View.GONE);
+            progressBarList.setVisibility(View.GONE);
             recylerView.setVisibility(View.GONE);
             no_patients_request_layout.setVisibility(View.VISIBLE);
         }else {
@@ -193,12 +198,7 @@ public class ListFragment extends Fragment {
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(runnable,2000);
     }
-
-
 }
-
-
-
 
 //tab
 //    public void load_tab(View view){

@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,8 @@ public class HomeFragment extends Fragment {
 
     public String EMAILX;
     RecyclerView homeRecylerView;
+    TextView loading_text_view;
+    ProgressBar progressBarHome;
     CardView no_patients_yet_card;
     String NAME,AGE,EMAIL,PASSWORD,PASSWORD_HINT,GENDER, SPECIALIZATION,ABOUT,STATUS,LOGIN_UID;
     String temp_status;
@@ -189,15 +192,17 @@ public class HomeFragment extends Fragment {
     }
 
     public void setHomeRecylerView(View view){
-    if (allDataList.size()==0){
-        homeRecylerView.setVisibility(View.GONE);
-        no_patients_yet_card.setVisibility(View.VISIBLE);
-    }else {
-        homeRecylerView.setVisibility(View.VISIBLE);
-        no_patients_yet_card.setVisibility(View.GONE);
-        card_model_delayed();
-        recyler_view_delayed(view);
-    }
+        if (allDataList.size()==0){
+            progressBarHome.setVisibility(View.GONE);
+            loading_text_view.setVisibility(View.GONE);
+            homeRecylerView.setVisibility(View.GONE);
+            no_patients_yet_card.setVisibility(View.VISIBLE);
+        }else {
+//            homeRecylerView.setVisibility(View.VISIBLE);
+            no_patients_yet_card.setVisibility(View.GONE);
+            card_model_delayed();
+            recyler_view_delayed(view);
+        }
 }
 
     public void setHomeRecylerView_delayed(View view){
@@ -213,10 +218,15 @@ public class HomeFragment extends Fragment {
     public void find_views_by_id(View view){
     no_patients_yet_card = view.findViewById(R.id.no_patients_yet_card);
     homeRecylerView = view.findViewById(R.id.homeRecylerView);
+    progressBarHome = view.findViewById(R.id.progressBarHome);
+    loading_text_view = view.findViewById(R.id.loading_text_view);
 
 }
     public void recyler_view(View view){
             RecyclerView recylerView = view.findViewById(R.id.homeRecylerView);
+            progressBarHome.setVisibility(View.GONE);
+            loading_text_view.setVisibility(View.GONE);
+            recylerView.setVisibility(View.VISIBLE);
 //        cardModel();
             homeCardRecylerViewAdapter adapter = new homeCardRecylerViewAdapter((getActivity().getApplicationContext()),card);
             recylerView.setAdapter(adapter);
@@ -258,27 +268,21 @@ public class HomeFragment extends Fragment {
 
 
     public void cardModel(){
-
         ArrayList<String> NAMES = new ArrayList<>();
         ArrayList<String> PROBLEMS = new ArrayList<>();
         ArrayList<String> EMAILS = new ArrayList<>();
         int count_handling=0;
         for (int i=0; i<allDataList.size(); i++){
             if((allDataList.get(i).status).equals("handling")){
-                NAMES.add(allDataList.get(i).name.toString());
-                PROBLEMS.add(allDataList.get(i).problem.toString());
-                EMAILS.add(allDataList.get(i).email.toString());
+                NAMES.add(allDataList.get(i).name);
+                PROBLEMS.add(allDataList.get(i).problem);
+                EMAILS.add(allDataList.get(i).email);
             }
         }
-//
-//        for (int i = 0; i < NAMES.size(); i++){
-//            card.add(new homeCardRecycler(NAMES.get(i),PROBLEMS.get(i),EMAILS.get(i),EMAIL));
-//        }
-
-//        String Names[] = {"AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle","AASIm","Ahmed","Oracle"};
-//        String Problem[] = {"cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz","cough","fever","xyz"};
         if (NAMES.size()==0){
             homeRecylerView.setVisibility(View.GONE);
+            progressBarHome.setVisibility(View.GONE);
+            loading_text_view.setVisibility(View.GONE);
             no_patients_yet_card.setVisibility(View.VISIBLE);
         }else {
             for (int i = 0; i < NAMES.size(); i++){

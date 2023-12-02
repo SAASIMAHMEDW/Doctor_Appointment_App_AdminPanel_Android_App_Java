@@ -73,6 +73,23 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <ProgressBar
+        android:id="@+id/progressBarHome"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Large.Inverse"
+        android:layout_width="210dp"
+        android:layout_height="224dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:id="@+id/loading_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alata"
+        android:gravity="center"
+        android:text="Loading Handling Patient(s)"
+        android:textSize="20sp" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/no_patients_yet_card"
         android:layout_width="match_parent"
@@ -112,6 +129,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
